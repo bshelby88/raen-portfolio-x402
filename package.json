@@ -1,0 +1,20 @@
+{
+  "name": "raen-portfolio-x402",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node --check index.js && node test_resource_https.cjs"
+  },
+  "dependencies": {
+    "@x402/core": "^2.26.0",
+    "@x402/evm": "^2.26.0",
+    "@x402/express": "^2.26.0",
+    "@x402/extensions": "^2.26.0",
+    "express": "^4.19.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAEN — Royal Agentic Enterprise Network</title>
+<meta name="description" content="8 paid x402 APIs on Base mainnet. Pay USDC per call. No accounts, no subscriptions.">
+<style>
+:root{--bg:#0a0a0f;--card:#12121a;--accent:#6366f1;--text:#e2e8f0;--muted:#94a3b8;--border:#1e293b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.wrap{max-width:960px;margin:0 auto;padding:2rem 1.5rem}
+header{text-align:center;padding:3rem 0 2rem}
+h1{font-size:2.5rem;font-weight:800;background:linear-gradient(135deg,#6366f1,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.tag{color:var(--muted);margin-top:.75rem;font-size:1.1rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin:2rem 0}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:border-color .2s}
+.card:hover{border-color:var(--accent)}
+.card h3{font-size:1.1rem;margin-bottom:.25rem}
+.price{display:inline-block;background:var(--accent);color:#fff;padding:.15rem .6rem;border-radius:6px;font-weight:700;font-size:.85rem;margin-bottom:.75rem}
+.desc{color:var(--muted);font-size:.9rem;margin-bottom:1rem}
+.links{display:flex;gap:.5rem;flex-wrap:wrap}
+.btn{display:inline-block;padding:.4rem .8rem;border-radius:6px;font-size:.8rem;text-decoration:none;font-weight:600;cursor:pointer}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-secondary{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--accent)}
+.stats{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin:2rem 0;padding:1.5rem;background:var(--card);border-radius:12px;border:1px solid var(--border)}
+.stat{text-align:center}
+.stat .num{font-size:1.5rem;font-weight:800;color:var(--accent)}
+.stat .lbl{font-size:.8rem;color:var(--muted)}
+.integration{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin:2rem 0}
+.integration h2{margin-bottom:1rem}
+pre{background:#0a0a0f;padding:1rem;border-radius:8px;overflow-x:auto;font-size:.85rem;color:var(--muted);border:1px solid var(--border)}
+footer{text-align:center;padding:2rem 0;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>RAEN</h1>
+<p class="tag">Royal Agentic Enterprise Network — 8 paid APIs on Base mainnet. Pay USDC per call. No accounts. No subscriptions.</p>
+</header>
+
+<div class="stats">
+<div class="stat"><div class="num">8</div><div class="lbl">Services Live</div></div>
+<div class="stat"><div class="num">$0.01–$5</div><div class="lbl">Per Call</div></div>
+<div class="stat"><div class="num">Base</div><div class="lbl">Mainnet (USDC)</div></div>
+<div class="stat"><div class="num">x402</div><div class="lbl">Protocol</div></div>
+</div>
+
+<div class="grid">
+<article class="card">
+<h3>Sentry Forge</h3>
+<span class="price">$5.00</span>
+<p class="desc">Turn a third-party collection notice into 8 review-ready dispute documents: collector letter, CFPB complaints, bureau disputes, court-records guide, evidence inventory.</p>
+<div class="links">
+<a class="btn btn-primary" href="https://sentry-forge-x402.fly.dev/sample" target="_blank">Try Free Sample</a>
+<a class="btn btn-secondary" href="https://sentry-forge-x402.fly.dev/.well-known/x402.json" target="_blank">Manifest</a>
+</div>
+</article>
+
+<article class="card">
+<h3>Royal Ruby</h3>
+<span class="price">$0.25</span>
+<p class="desc">US consumer-rights law citation lookup (FCRA, FDCPA, TILA, state UDAP, debt-collection rules, credit-reporting timelines). Information service — not legal advice.</p>
+<div class="links">
+<a class="btn btn-primary" href="https://royal-ruby-x402.fly.dev/sample" target="_blank">Try Free Sample</a>
+<a class="btn btn-secondary" href="https://royal-ruby-x402.fly.dev/.well-known/x402.json" target="_blank">Manifest</a>
+</div>
+</article>
+
+<article class="card">
+<h3>Vault Pro</h3>
+<span class="price">$0.05</span>
+<p class="desc">Obsidian project/agent scaffolder. Returns a complete markdown document with frontmatter, Goal, Success criteria, Decomposition table, Hermes coordination notes.</p>
+<div class="links">
+<a class="btn btn-primary" href="https://vault-pro-x402.fly.dev/sample" target="_blank">Try Free Sample</a>
+<a class="btn btn-secondary" href="https://vault-pro-x402.fly.dev/.well-known/x402.json" target="_blank">Manifest</a>
+</div>
+</article>
+
+<article class="card">
+<h3>TradingAgents</h3>
+<span class="price">$0.05</span>
+<p class="desc">Multi-agent LLM ticker analysis. Five specialist analysts (fundamentals, sentiment, news, technical, researcher debate) plus trader synthesis and risk review. Returns BUY/HOLD/SELL.</p>
+<div class="links">
+<a class="btn btn-primary" href="https://tradingagents-x402.fly.dev/sample" target="_blank">Try Free Sample</a>
+<a class="btn btn-secondary" href="https://tradingagents-x402.fly.dev/.well-known/x402.json" target="_blank">Manifest</a>
+</div>
+</article>
+
+<article class="card">
+<h3>SupraPack</h3>
+<span class="price">$0.03</span>
+<p class="desc">Skill discovery over a curated 531-skill bundle. Returns top matching skills with full markdown content, quality score, categories, source repo.</p>
+<div class="links">
+<a class="btn btn-primary" href="https://suprapack-x402.fly.dev/sample" target="_blank">Try Free Sample</a>
+<a class="btn btn-secondary" href="https://suprapack-x402.fly.dev/.well-known/x402.json" target="_blank">Manifest</a>
+</div>
+</article>
+
+<article class="card">
+<h3>Nano Banana</h3>
+<span class="price">$0.01</span>
+<p class="desc">Gemini image generation. Generate from prompt or edit an existing image. Returns base64 PNG. Supports 10 aspect ratios. No API key needed.</p>
+<div class="links">
+<a class="btn btn-primary" href="https://nanobanana-x402.fly.dev/sample" target="_blank">Try Free Sample</a>
+<a class="btn btn-secondary" href="https://nanobanana-x402.fly.dev/.well-known/x402.json" target="_blank">Manifest</a>
+</div>
+</article>
+
+<article class="card">
+<h3>NFT Alpha</h3>
+<span class="price">$0.02</span>
+<p class="desc">NFT floor-movement signal. Floor delta, volume change, holder-activity summary across monitored collections on Base. Machine-readable JSON.</p>
+<div class="links">
+<a class="btn btn-primary" href="https://nft-alpha-x402.fly.dev/sample" target="_blank">Try Free Sample</a>
+<a class="btn btn-secondary" href="https://nft-alpha-x402.fly.dev/.well-known/x402.json" target="_blank">Manifest</a>
+</div>
+</article>
+
+<article class="card">
+<h3>Power Pack</h3>
+<span class="price">$0.01</span>
+<p class="desc">Outreach email scorer. Scores subject quality, body quality, predicted open rate, spam risk, tone, length, personalization, CTA clarity. Returns 3 improvements + rewritten subject.</p>
+<div class="links">
+<a class="btn btn-primary" href="https://power-pack-x402.fly.dev/sample" target="_blank">Try Free Sample</a>
+<a class="btn btn-secondary" href="https://power-pack-x402.fly.dev/.well-known/x402.json" target="_blank">Manifest</a>
+</div>
+</article>
+</div>
+
+<div class="integration">
+<h2>Integrate in 60 seconds</h2>
+<p style="color:var(--muted);margin-bottom:1rem">Any agent with a USDC wallet can pay and call. No accounts, no API keys, no signup.</p>
+<pre><code># 1. Get the 402 challenge (free)
+curl -i -X POST https://power-pack-x402.fly.dev/api/score-email \
+  -H "Content-Type: application/json" \
+  -d '{"subject":"Quick question","body":"I noticed your team is scaling outbound."}'
+
+# 2. Pay and get output (Python)
+from x402_httpx import X402Client
+with X402Client(private_key="0x...", network="eip155:8453") as c:
+    r = c.post("https://power-pack-x402.fly.dev/api/score-email",
+               json={"subject":"Quick question","body":"..."},
+               max_price_usd=0.02)
+    print(r.json())
+
+# Constants (all 8 services)
+payTo: 0x7861db4efc14a1ed5dd8c96c528a3796560f1393
+asset: 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+facilitator: https://x402-agent-pay.com/facilitator
+network: eip155:8453</code></pre>
+</div>
+
+<footer>
+<p>Royal Agentic Enterprises · contact jadedfocus@gmail.com</p>
+<p>All services are information utilities — not financial, legal, or professional advice. Verify outputs independently.</p>
+</footer>
+</div>
+</body>
+</html>

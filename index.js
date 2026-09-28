@@ -240,18 +240,21 @@ app.post("/a2a", (req, res) => {
     return res.json({ jsonrpc: "2.0", id, error: { code: -32600, message: "Invalid Request: expected JSON-RPC 2.0 with a method string" } });
   }
   if (b.method === "SendMessage" || b.method === "message/send" || b.method === "tasks/send") {
+    // Wire-format negotiation by the method the caller used (Agenstry validator:
+    // "SendMessage for v1, message/send for v0.3"). A2A v1.0 is protojson:
+    // role ROLE_AGENT enum + bare oneof parts ({"text":...}, no "kind").
+    // v0.3 keeps kind/agent. Inbound parts accepted in BOTH shapes.
+    const v1 = b.method === "SendMessage";
     const userText = (((b.params || {}).message || {}).parts || [])
-      .filter((p) => p && p.kind === "text" && typeof p.text === "string")
+      .filter((p) => p && typeof p.text === "string")
       .map((p) => p.text).join(" ").slice(0, 500);
     const answer = portfolioGuideText() + portfolioKeywordHint(userText.toLowerCase());
-    return res.json({
-      jsonrpc: "2.0", id,
-      result: {
-        kind: "message", role: "agent", messageId: `r-${Date.now()}`,
-        parts: [{ kind: "text", text: answer }],
-        metadata: { free: true, x402: { network: NETWORK, asset: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913", payTo: PAY_TO, manifest: "/.well-known/x402.json" } },
-      },
-    });
+    const metadata = { free: true, x402: { network: NETWORK, asset: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913", payTo: PAY_TO, manifest: "/.well-known/x402.json" } };
+    const messageId = `r-${Date.now()}`;
+    const result = v1
+      ? { messageId, role: "ROLE_AGENT", parts: [{ text: answer }], metadata }
+      : { kind: "message", role: "agent", messageId, parts: [{ kind: "text", text: answer }], metadata };
+    return res.json({ jsonrpc: "2.0", id, result });
   }
   if (b.method === "GetAgentCard") {
     return res.json({ jsonrpc: "2.0", id, result: portfolioAgentCard(req) });

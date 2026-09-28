@@ -30,7 +30,8 @@ async function main() {
 
     check("protocolVersion Major.Minor '1.0'", card.protocolVersion === "1.0", card.protocolVersion);
     check("card url is https /a2a", /^https:\/\//.test(card.url || "") && /\/a2a$/.test(card.url || ""), card.url);
-    check("supportedInterfaces + preferredTransport JSONRPC", Array.isArray(card.supportedInterfaces) && card.supportedInterfaces[0].transport === "JSONRPC" && card.preferredTransport === "JSONRPC");
+    check('supportedInterfaces + preferredTransport JSONRPC', Array.isArray(card.supportedInterfaces) && card.supportedInterfaces[0].transport === 'JSONRPC' && card.preferredTransport === 'JSONRPC');
+    check('v1 AgentInterface protocolBinding (REQUIRED for SDK transport matching)', card.supportedInterfaces[0].protocolBinding === 'JSONRPC' && card.supportedInterfaces[0].protocolVersion === '1.0');
     check("provider = Royal Agentic Enterprises", card.provider && card.provider.organization === "Royal Agentic Enterprises");
     check("documentationUrl live /pricing.md", card.documentationUrl === "https://raen-portfolio-x402.fly.dev/pricing.md");
     check(">=3 skills", Array.isArray(card.skills) && card.skills.length >= 3, `skills=${(card.skills || []).length}`);

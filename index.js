@@ -191,7 +191,7 @@ function portfolioAgentCard(req) {
     version: "1.0.0",
     protocolVersion: "1.0",
     url: pfCardUrl(req),
-    supportedInterfaces: [{ url: pfCardUrl(req), transport: "JSONRPC" }],
+    supportedInterfaces: [{ url: pfCardUrl(req), transport: "JSONRPC", protocolBinding: "JSONRPC", protocolVersion: "1.0" }],
     preferredTransport: "JSONRPC",
     provider: { organization: "Royal Agentic Enterprises", url: "https://royal-gateway-x402.fly.dev" },
     documentationUrl: "https://raen-portfolio-x402.fly.dev/pricing.md",

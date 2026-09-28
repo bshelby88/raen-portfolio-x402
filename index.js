@@ -144,6 +144,122 @@ x402Server.register(NETWORK, new ExactEvmScheme());
   console.warn("x402 not ready after retries; lazy init on first paid call");
 })();
 
+// ---------------------------------------------------------------------------
+// AGENSTRY-W1 cycle-6 (recO9y9mCEnExkp3W, 2026-09-28) — A2A v1.0 agent card +
+// free JSON-RPC SendMessage surface. Proven playbook: rae-fleet-router PR #6
+// (merged 2a81afba) then royal-gateway-x402 PR #2 (Agenstry instant-page
+// confirmed 12:3xZ) — directories crawl /.well-known/agent-card.json and the
+// sole indexing blocker was the missing card (404). Registered ABOVE
+// paymentMiddleware: these routes can never emit 402, never call a paid
+// downstream service, never move money. All claims derived from this file's
+// own SERVICES/PAY_TO/PRICE constants — the live 402 challenge stays
+// authoritative for the paid endpoint.
+// ---------------------------------------------------------------------------
+function pfCardUrl(req) {
+  return `https://${req.get("host") || "raen-portfolio-x402.fly.dev"}/a2a`;
+}
+function portfolioAgentCard(req) {
+  const skills = [
+    {
+      id: "portfolio-health-recipes", name: "RAEN fleet portfolio report (paid)",
+      description: `POST /api/portfolio — ${PRICE} USDC on Base (${NETWORK}) returns live health probes + integration recipes for all ${SERVICES.length} RAEN services. Paid path only via the x402 402 challenge on that route.`,
+      tags: ["portfolio", "health", "integration", "x402", "usdc", "base"],
+      examples: ["Show me the live status and integration recipes for all RAEN services."],
+    },
+    {
+      id: "fleet-service-guide", name: "Fleet service guide (free)",
+      description: `Ask this agent in plain text what the ${SERVICES.length} RAEN x402 services do, what each costs, and the exact endpoint URL — answered free over A2A JSON-RPC with no payment and no downstream calls.`,
+      tags: ["catalog", "pricing", "discovery", "x402", "free"],
+      examples: ["Which RAEN service gives NFT floor signals and what does it cost?"],
+    },
+    {
+      id: "cheapest-task-finder", name: "Cheapest endpoint finder (free)",
+      description: "Given a task (image generation, dispute pack, email scoring, skill search, legal lookup...), returns the cheapest matching catalog endpoint with method+URL+price, derived from the same SERVICES table as /pricing.md.",
+      tags: ["pricing", "optimization", "x402", "usdc", "base"],
+      examples: ["Cheapest way to generate an image and to score an outreach email?"],
+    },
+    {
+      id: "x402-payment-onboarding", name: "x402 payment onboarding (free)",
+      description: "Explains the 4-step x402 v2 flow: POST unpaid, decode the 402 PAYMENT-REQUIRED header, sign a USDC EIP-3009 transferWithAuthorization on Base, resend with PAYMENT-SIGNATURE. Names the canonical treasury from the live manifest.",
+      tags: ["x402", "usdc", "eip-3009", "onboarding", "free"],
+      examples: ["How does an agent pay this endpoint with USDC on Base?"],
+    },
+  ];
+  return {
+    name: "RAEN Portfolio x402 — Fleet Health & Integration Recipes",
+    description: `Royal Agentic (RAEN) fleet portfolio wall: one ${PRICE} USDC call on Base returns live health + integration recipes for all ${SERVICES.length} x402 services (sentry-forge, royal-ruby, vault-pro, tradingagents, power-pack, suprapack, nanobanana, nft-alpha). Free A2A guidance + machine-readable pricing at /.well-known/x402.json.`,
+    version: "1.0.0",
+    protocolVersion: "1.0",
+    url: pfCardUrl(req),
+    supportedInterfaces: [{ url: pfCardUrl(req), transport: "JSONRPC" }],
+    preferredTransport: "JSONRPC",
+    provider: { organization: "Royal Agentic Enterprises", url: "https://royal-gateway-x402.fly.dev" },
+    documentationUrl: "https://raen-portfolio-x402.fly.dev/pricing.md",
+    capabilities: {
+      streaming: false,
+      pushNotifications: false,
+      stateTransitionHistory: false,
+      extensions: [
+        { uri: "https://x402.org", description: `x402 v2 payment gating: USDC (eip155:8453, contract 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913), scheme exact, payTo treasury ${PAY_TO}. The live 402 challenge is authoritative.`, required: false },
+      ],
+    },
+    defaultInputModes: ["application/json", "text/plain"],
+    defaultOutputModes: ["application/json", "text/plain"],
+    skills,
+    securitySchemes: {},
+    security: [],
+  };
+}
+function portfolioGuideText() {
+  const table = SERVICES.map((s) => `- ${s.name}: ${s.desc} — POST ${s.url} ${s.price}`).join("\n");
+  return `RAEN Portfolio x402 (${SERVICES.length} services, USDC on Base ${NETWORK}, treasury ${PAY_TO}). Paid here: POST /api/portfolio ${PRICE} USDC — live health + integration recipes for every service below. ${table}\nFree surfaces: /sample (shape demo), /pricing.md, /llms.txt, /.well-known/x402.json. To pay anything: POST unpaid, decode the 402 PAYMENT-REQUIRED header, sign a USDC EIP-3009 transferWithAuthorization, resend with PAYMENT-SIGNATURE. The live 402 challenge is authoritative — prices there beat this text.`;
+}
+function portfolioKeywordHint(lower) {
+  const hits = SERVICES.filter((s) => {
+    const key = `${s.name} ${s.desc}`.toLowerCase();
+    const want = /nft/.test(lower) ? "nft" :
+      /image|picture/.test(lower) ? "image" :
+      /email|outreach|scor/.test(lower) ? "email" :
+      /dispute|debt|refund/.test(lower) ? "dispute" :
+      /law|legal|right|citation/.test(lower) ? "law" :
+      /skill/.test(lower) ? "skill" :
+      /ticker|trading|market/.test(lower) ? "ticker" :
+      /obsidian|scaffold|project/.test(lower) ? "scaffold" : null;
+    return want && key.includes(want);
+  }).slice(0, 4);
+  return hits.length ? `\n\nMatched: ${hits.map((s) => `${s.name} POST ${s.url} ${s.price}`).join(" | ")}` : "";
+}
+app.get(["/.well-known/agent-card.json", "/.well-known/agent.json"], (req, res) => {
+  res.set("Cache-Control", "public, max-age=60");
+  res.json(portfolioAgentCard(req));
+});
+app.post("/a2a", (req, res) => {
+  const b = req.body || {};
+  const id = b.id !== undefined ? b.id : null;
+  if (b.jsonrpc !== "2.0" || typeof b.method !== "string") {
+    return res.json({ jsonrpc: "2.0", id, error: { code: -32600, message: "Invalid Request: expected JSON-RPC 2.0 with a method string" } });
+  }
+  if (b.method === "SendMessage" || b.method === "message/send" || b.method === "tasks/send") {
+    const userText = (((b.params || {}).message || {}).parts || [])
+      .filter((p) => p && p.kind === "text" && typeof p.text === "string")
+      .map((p) => p.text).join(" ").slice(0, 500);
+    const answer = portfolioGuideText() + portfolioKeywordHint(userText.toLowerCase());
+    return res.json({
+      jsonrpc: "2.0", id,
+      result: {
+        kind: "message", role: "agent", messageId: `r-${Date.now()}`,
+        parts: [{ kind: "text", text: answer }],
+        metadata: { free: true, x402: { network: NETWORK, asset: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913", payTo: PAY_TO, manifest: "/.well-known/x402.json" } },
+      },
+    });
+  }
+  if (b.method === "GetAgentCard") {
+    return res.json({ jsonrpc: "2.0", id, result: portfolioAgentCard(req) });
+  }
+  return res.json({ jsonrpc: "2.0", id, error: { code: -32601, message: "Method not found: supported are SendMessage (v1), message/send (v0.3), GetAgentCard" } });
+});
+// --- End AGENSTRY-W1 free surfaces ---
+
 app.use(paymentMiddleware(routesConfig, x402Server, undefined, undefined, false));
 
 // --- Routes ---

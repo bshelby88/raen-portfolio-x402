@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "node --check index.js && node test_resource_https.cjs"
+    "test": "node --check index.js && node test_resource_https.cjs && node test_agent_card.cjs"
   },
   "dependencies": {
     "@x402/core": "^2.26.0",

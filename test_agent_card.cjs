@@ -49,8 +49,9 @@ async function main() {
     check("guide lists every catalog service with prices", SERVICES.every((s) => v03.body.result.parts[0].text.includes(s.name)));
     check("metadata declares free + payTo", v03.body.result.metadata.free === true && v03.body.result.metadata.x402.payTo === PAY_TO);
 
-    const v1 = await rpc({ jsonrpc: "2.0", id: "a", method: "SendMessage", params: { message: { parts: [{ kind: "text", text: "cheapest image generation?" }] } } });
-    check("v1 SendMessage + keyword hit nanobanana", v1.status === 200 && /NanoBanana|nanobanana/.test(v1.body.result.parts[0].text));
+    const v1 = await rpc({ jsonrpc: "2.0", id: "a", method: "SendMessage", params: { message: { role: "ROLE_USER", parts: [{ text: "cheapest image generation?" }] } } });
+    check("v1 SendMessage protojson: ROLE_AGENT + bare parts", v1.status === 200 && v1.body.result.role === "ROLE_AGENT" && v1.body.result.kind === undefined && v1.body.result.parts[0].kind === undefined);
+    check("v1 keyword hit nanobanana via bare part", /nanobanana/i.test(v1.body.result.parts[0].text));
     const gc = await rpc({ jsonrpc: "2.0", id: 3, method: "GetAgentCard", params: {} });
     check("GetAgentCard returns card", gc.body.result && gc.body.result.protocolVersion === "1.0");
     const unk = await rpc({ jsonrpc: "2.0", id: 4, method: "tasks/get", params: {} });
